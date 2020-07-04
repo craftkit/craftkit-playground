@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover"/>
+	
+	<title>CraftKit Playground</title>
+	<style>
+		* { margin:0; padding:0; }
+		html,body {
+			background-color: #fff;
+			background-image: url('/logo.gif');
+			background-position: center center; 
+			background-repeat: no-repeat;
+			background-attachment: fixed; 
+			font-family: "Meiryo"
+		}
+	</style>
+	
+	<script src="https://unpkg.com/@craftkit/craft-uikit/dist/craft-uikit.min.dev.js"></script>
+	<script>
+		window.load_module = function(url){
+			var http = new XMLHttpRequest();
+			http.onload = function(e){
+				let script = document.createElement('script');
+				script.type = 'text/javascript';
+				script.text = this.responseText;
+				script.async = false;
+				document.head.appendChild(script);
+				console.log('loaded: '+url);
+			};
+			http.onerror = function(e){ alert('cannot call api'); };
+			http.ontimeout = function(){ alert('timeout'); };
+			http.open('GET',url);
+			http.send();
+		};
+		window.load_css = function(url){
+			let link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.href = url;
+			document.head.appendChild(link);
+			console.log('loaded: '+url);
+		};
+		window.onload = function(){
+			console.log(" ");
+			console.log("🛺  Welcome to CraftKit Playground");
+			console.log(" ");
+			console.log("    Check:");
+			console.log("      https://github.com/craftkit/craftkit-playground");
+			console.log(" ");
+			console.log("    Copy and paste tutorial snippet in here");
+			console.log("    Enjoy!");
+			console.log(" ");
+			Craft.Core.Bootstrap.boot({
+				router : Craft.Core.HashRouter,
+				didBootApplication : function(){
+					Craft.Core.Defaults.BASE_DIV_NAME = 'CraftRoot';
+					Craft.Core.Defaults.ALLOW_COMPONENT_SHORTCUT = true;
+				}
+			});
+		};
+	</script>
+</head>
+<body id="CraftRoot">
+</body>
+</html>
