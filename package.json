@@ -1,0 +1,35 @@
+{
+  "name": "@craftkit/craftkit-playground",
+  "version": "1.0.0",
+  "description": "CraftKit Playground",
+  "main": "",
+  "module": "",
+  "unpkg": "",
+  "dependencies": {
+    "local-web-server": "^3.0.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "playground": "node_modules/.bin/ws -v -p 8000 -d docs --spa index.html --spa.asset-test-fs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/craftkit/craftkit-playground.git"
+  },
+  "keywords": [
+  	"Tutorial",
+  	"Playgound",
+    "WebComponents",
+    "Shadow DOM",
+    "OOP",
+    "SPA",
+    "PWA",
+    "frontend"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/craftkit/craftkit-playground/issues"
+  },
+  "homepage": "https://github.com/craftkit/craftkit-playground"
+}

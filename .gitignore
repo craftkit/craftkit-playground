@@ -1,0 +1,7 @@
+.DS_Store
+Icon?
+*~
+node_modules/
+docs/
+package-lock.json
+npm-debug.log
