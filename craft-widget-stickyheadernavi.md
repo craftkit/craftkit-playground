@@ -9,7 +9,7 @@ In this tutorial, we learn basic structure of this widget, and page navigation.
 
 Before start this tutorial, play [CraftKit Basics](README.md) tutorial.
 
-Open [Playground](https://playground.craftkit.dev/), then copy and paste below snippets into your browser console.  
+Open [Playground](https://craftkit.dev/craftkit-playground/), then copy and paste below snippets into your browser console.  
 Enjoy!
 
 

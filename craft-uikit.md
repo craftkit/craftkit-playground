@@ -3,7 +3,7 @@
 
 This is an online tutorial for Craft-UIKit basic logics.
 
-Open [Playground](https://playground.craftkit.dev/), then copy and paste below snippets into your browser console.  
+Open [Playground](https://craftkit.dev/craftkit-playground/), then copy and paste below snippets into your browser console.  
 Enjoy!
 
 
