@@ -3,9 +3,10 @@
 
 This is an online tutorial for CraftKit.
 
-1. Open [Playground (https://craftkit.dev/craftkit-playground/)](https://craftkit.dev/craftkit-playground/), with browser console.  
-2. Open a tutorial page listed below in another window.  
-3. Copy and paste snippets documented in the tutorial into the 1.'s console.
+1. Open [Playground (https://craftkit.dev/craftkit-playground/)](https://craftkit.dev/craftkit-playground/)  
+2. Open 1.'s browser console  
+3. Open a tutorial page listed below in another window  
+4. Copy and paste snippets documented in the tutorial into the 2.'s console  
 
 Enjoy!
 
@@ -17,6 +18,13 @@ Enjoy!
 🏝 [Craft-Widget-Calendar](./craft-widget-calendar.md)  
 🏝 [Craft-Widget-NavigationGroup](./craft-widget-navigationgroup.md)  
 🏝 [Craft-Widget-StickyHeaderNavi](./craft-widget-stickyheadernavi.md)  
+
+
+## 🗒 Run locally
+
+``` 
+ws -v -p 8008 -d docs --spa index.html --spa.asset-test-fs
+``` 
 
 
 ## 🖋 License

@@ -93,7 +93,7 @@ view.removeFromParent()
 #### 🤾‍♀️ Change with CSS transition
 
 Style method can define any CSS.  
-So, it is easy to animate the view wit CSS transition.
+So, it is easy to apply animation by using CSS transition.
 
 ``` 
 class HelloTransition extends Hello {
@@ -112,18 +112,65 @@ rootViewController.appendView(view)
 ``` 
 
 After you place a view with CSS transition,
-move and make red it by below snippet like above.
+move and make it red by below snippet like above.
 
 ``` 
 view.root.style.color = 'red'
 view.root.style.marginTop = '200px'
 ``` 
 
-Play with css transition, then clean up screen.
+Play with CSS transition, then clean up screen.
 
 ``` 
 view.removeFromParent()
 ``` 
+
+#### 🤾‍♀️ Encapsulation of Shadow DOM
+
+Craft.UI.View encapsulates Shadow DOM.  
+So, you are never plagued by CSS name space.
+
+``` 
+class HelloBlue extends Hello {
+	style(componentId){
+		return super.style(componentId) + `
+			.root {
+				color:blue;
+			}
+		`;
+	}
+}
+class HelloGreen extends Hello {
+	style(componentId){
+		return super.style(componentId) + `
+			.root {
+				color:green;
+			}
+		`;
+	}
+}
+``` 
+
+Above two classes have same style class `color`,  
+but never conflict.
+
+``` 
+var viewBlue = new HelloBlue()
+var viewGreen = new HelloGreen()
+viewBlue.loadView()
+viewGreen.loadView()
+rootViewController.appendView(viewBlue)
+rootViewController.appendView(viewGreen)
+``` 
+
+After checking encapsulation, clean up screen.
+
+``` 
+viewBlue.removeFromParent()
+viewGreen.removeFromParent()
+``` 
+
+Of course, `id` defined in the template is also encapsulated.
 
 ### 🧩 "Hello World" view
 
@@ -152,12 +199,16 @@ rootViewController.appendView(view)
 view.sayTo('CraftKit')
 ``` 
 
+sayTo method updates `whom`, and update its view.
+
 #### 🤾‍♀️ Yet another solution
 
-In above case, `renderView` re-compile template with current status of `this`.  
+In above case, `renderView` re-compiles template with current status of `this`.  
 This will reset some dynamic design applied to your object. (instead, this implementation is durty)
 
-So, you can change `whom` by following code to keep you inner status.
+
+The compiled view is accesible by `shadow` property,  
+So, you can change `whom` by following code, and you can keep your inner status.
 
 ``` 
 view.shadow.getElementById('whom').innerHTML = 'CraftKit'
@@ -165,7 +216,7 @@ view.shadow.getElementById('whom').innerHTML = 'CraftKit'
 
 Therefore, you can implement SayHello class like this.
 
-Before paste following snippet remove the view,
+(Before paste following snippet remove the view)
 
 ``` 
 view.removeFromParent()
@@ -240,7 +291,7 @@ class SayHelloAdvanced extends HelloRed {
 		let disappear = this.world;
 		this.world = new World(whom);
 		this.replaceView({
-			target : this.shadow.getElementById('whom'),
+			id        : '#whom',
 			component : this.world
 		});
 		if( disappear ){
@@ -261,7 +312,7 @@ view.sayTo('CraftKit')
 
 🗒 NOTE:  
 In this solution, instance of `World` is created by every `sayTo` call.  
-But even if you removed it from the screen, its instance is still on the memory.  
+But even if you removed it from the screen (=DOM tree), its instance is still on the memory.  
 So, you have to delete it by calling `unloadView`.
 
 #### 🤾‍♀️ Global component access
