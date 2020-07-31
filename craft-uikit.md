@@ -264,15 +264,10 @@ In real world application, you may not want to inject HTML code into the Shadow 
 So, you may implement like this:
 
 ``` 
-class World extends Craft.UI.View {
+class World extends Craft.UI.InlineBlockView {
 	constructor(whom){
 		super();
 		this.whom = whom || 'World';
-	}
-	style(componentId){
-		return `
-			:host { display: inline-block } /* by default host element is block */
-		`;
 	}
 	template(componentId){
 		return `<div class="root">${this.whom}</div>`;
