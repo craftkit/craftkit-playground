@@ -151,7 +151,7 @@ class HelloGreen extends Hello {
 }
 ``` 
 
-Above two classes have same style class `color`,  
+Above two classes have same style class `root`,  
 but never conflict.
 
 ``` 
