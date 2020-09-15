@@ -204,11 +204,10 @@ sayTo method updates `whom`, and update its view.
 #### 🤾‍♀️ Yet another solution
 
 In above case, `renderView` re-compiles template with current status of `this`.  
-This will reset some dynamic design applied to your object. (instead, this implementation is durty)
-
+This will reset some dynamic design already applied to your object. 
 
 The compiled view is accesible by `shadow` property,  
-So, you can change `whom` by following code, and you can keep your inner status.
+So, you can change `whom` by following code, and then you can keep your inner status.
 
 ``` 
 view.shadow.getElementById('whom').innerHTML = 'CraftKit'
