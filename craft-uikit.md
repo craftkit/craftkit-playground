@@ -357,6 +357,72 @@ In this case, view is poited by:
 `packagename` is an adhook solution until comming **Private class fields** in Safari.
 
 
+### 🧩 Modal
+
+Modal view is very basic UI experience. Therefore CraftKit supports it by basic UIKit package.
+
+At first, get a ModalViewController instance. 
+And append it to the RootViewController.
+
+``` 
+var modalViewController = new Craft.UI.ModalViewController();
+modalViewController.loadView();
+
+Craft.Core.Context.getRootViewController().appendView(modalViewController);
+``` 
+
+Ok, you are now able to get modal behaviour.
+
+Next, design a Dialog view to be shown as modal.
+
+``` 
+class Dialog extends Craft.UI.View {
+	closeDialog(){
+		this.viewController.hideContent( () => {
+			this.unloadView();
+		});
+	}
+	style(componentId){
+		return `
+			.btn {
+				box-sizing : border-box;
+				width : 100px;
+				height : 50px;
+				margin : 100px auto;
+				line-height : 50px;
+				text-align : center;
+				background-color : #e4e4e4;
+				border-radius : 5px;
+				cursor : pointer;
+			}
+		`;
+	}
+	template(componentId){
+		return `
+			<div class="root">
+				<div class="btn" onclick="${componentId}.closeDialog();">Close me</div>
+			</div>
+		`;
+	}
+}
+``` 
+
+The dialog instance is controlled by `modalViewController`. (because the dialog instance is `appendView`ed by it)
+
+When you click the "Close me" button, closeDialog method will invoke its viewController's `hideContent` method. 
+In this case, after closing the dialog, it unloading itself. Because you no longer need this instance. 
+
+Ok, finaly show the dialog as modal:
+
+``` 
+var dialogView = new Dialog();
+dialogView.loadView();
+
+modalViewController.setContent(dialogView);
+modalViewController.showContent();
+``` 
+
+
 ## 🖋 License
 
 MIT
