@@ -3,7 +3,7 @@
 
 This is an online tutorial for CraftKit.
 
-1. Open [Playground ([playground)](https://craftkit.dev/craftkit-playground/](https://craftkit.github.io/craftkit-playground/))  
+1. Open Playground ([https://craftkit.github.io/craftkit-playground/](https://craftkit.github.io/craftkit-playground/))  
 2. Open 1.'s browser console  
 3. Open a tutorial page listed below in another window  
 4. Copy and paste snippets documented in the tutorial into the 2.'s console  
