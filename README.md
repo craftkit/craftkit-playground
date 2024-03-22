@@ -3,7 +3,7 @@
 
 This is an online tutorial for CraftKit.
 
-Open [Playground (https://craftkit.dev/craftkit-playground/)](https://craftkit.dev/craftkit-playground/) and load sample code, or write your own code to see how it works. 
+Open [Playground](https://craftkit.github.io/craftkit-playground/)(https://craftkit.github.io/craftkit-playground/) and load sample code, or write your own code to see how it works. 
 
 Enjoy!
 
