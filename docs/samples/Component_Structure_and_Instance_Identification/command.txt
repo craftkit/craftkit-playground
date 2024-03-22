@@ -1,0 +1,7 @@
+var truck_view = new DangerousTruck();
+truck_view.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(truck_view);
+
+var car_view = new Car();
+car_view.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(car_view);

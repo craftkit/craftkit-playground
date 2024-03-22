@@ -1,0 +1,18 @@
+var example = new Example();
+example.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(example);
+
+// Example2
+var example2 = new Example2();
+example2.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(example2);
+
+// Example3
+var example3 = new Example3();
+example3.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(example3);
+
+// Example4Wrapper
+var example4 = new Example4Wrapper();
+example4.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(example4);

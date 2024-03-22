@@ -1,0 +1,3 @@
+var panelController = new PanelController();
+panelController.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(panelController);

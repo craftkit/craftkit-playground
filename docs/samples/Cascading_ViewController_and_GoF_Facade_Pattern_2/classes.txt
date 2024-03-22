@@ -1,0 +1,66 @@
+class PanelController extends Craft.UI.DefaultViewController {
+  viewDidLoad(callback) {
+    for (let i = 0; i < 9; i++) {
+      let p = new Panel({
+        num: i,
+      });
+      this.appendView({
+        id: "container",
+        component: p,
+      });
+    }
+    if (callback) {
+      callback();
+    }
+  }
+  forcus(num) {
+    this.shadow.getElementById("forcus").innerHTML = num;
+  }
+  style(componentId) {
+    return `
+      .root { box-sizing:border-box; }
+      #container {
+        width: 318px;
+        display:flex; flex-direction:row; flex-wrap:wrap;
+        margin-right:auto; margin-left:auto;
+      }
+    `;
+  }
+  template(componentId) {
+    return `
+      <div>
+        <div>
+          Selected: <span id="forcus"></span>
+        </div>
+        <div id="container"></div>
+      </div>
+    `;
+  }
+}
+class Panel extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { num: options.num };
+  }
+  style(componentId) {
+    return `
+      .root {
+        box-sizing:border-box;
+        width:100px; height:100px; margin:3px;
+        background-color:#eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    `;
+  }
+  template(componentId) {
+    return `
+      <div class="root">
+        <div onclick="${componentId}.viewController.forcus(${componentId}.data.num)">
+          select: ${this.data.num}
+        </div>
+      </div>
+    `;
+  }
+}

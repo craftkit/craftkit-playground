@@ -1,0 +1,61 @@
+class Hello extends Craft.UI.View {
+  style(componentId){
+    return super.style(componentId) + `
+      .root { margin: 50px; }
+      .text { color: black; }
+    `;
+  }
+  template(componentId){
+    return `
+      <div id="root" class="root">
+        <h1>Hello</h1>
+        <p class="text">World!</p>
+      </div>
+    `;
+  }
+}
+
+class HelloRed extends Hello {
+  style(componentId){
+    return super.style(componentId) + `
+      .text { color: red; }
+    `;
+  }
+}
+
+class HeaderStyling {
+  static style() { return `h1 { color: red; }`; }
+}
+
+class ParagraphStyling {
+  static style() { return `p { line-height: 2em; }`; }
+}
+
+class TextBlock extends Craft.UI.View {
+  style(componentId){
+    return HeaderStyling.style() + ParagraphStyling.style() + `
+      p { color: blue; }
+    `;
+  }
+}
+
+class DynamicTextBlockController extends Craft.UI.View {
+  viewDidLoad(callback){
+    this.appendSubView(new Hello({
+      styles: [HeaderStyling, ParagraphStyling]
+    }));
+  }
+}
+
+class DaynamicTextBlock extends Craft.UI.View {
+  constructor(options){
+    super(options);
+    this.injectedStyles = options.styles;
+  }
+  style(componentId){
+    return this.injectedStyles.map(style => style.style()).join('') + `
+      p { color: blue; }
+    `;
+  }
+}
+

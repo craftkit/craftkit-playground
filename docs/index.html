@@ -1,70 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover"/>
-	
-	<title>CraftKit Playground</title>
-	<style>
-		* { margin:0; padding:0; }
-		html,body {
-			background-color: #fff;
-			background-image: url('https://user-images.githubusercontent.com/4404088/86505378-b426b580-bdfe-11ea-9ca1-f723f037b00c.gif');
-			background-position: center center; 
-			background-repeat: no-repeat;
-			background-attachment: fixed; 
-			font-family: "Meiryo"
-		}
-	</style>
-	
-	<script src="https://unpkg.com/@craftkit/craft-uikit/dist/craft-uikit.min.js"></script>
-	<!--
-	<script src="craft-uikit.min.js"></script>
-	-->
-	
-	<script>
-		window.load_module = function(url){
-			var http = new XMLHttpRequest();
-			http.onload = function(e){
-				let script = document.createElement('script');
-				script.type = 'text/javascript';
-				script.text = this.responseText;
-				script.async = false;
-				document.head.appendChild(script);
-				console.log('loaded: '+url);
-			};
-			http.onerror = function(e){ alert('cannot call api'); };
-			http.ontimeout = function(){ alert('timeout'); };
-			http.open('GET',url);
-			http.send();
-		};
-		window.load_css = function(url){
-			let link = document.createElement('link');
-			link.rel = 'stylesheet';
-			link.href = url;
-			document.head.appendChild(link);
-			console.log('loaded: '+url);
-		};
-		window.onload = function(){
-			console.log(" ");
-			console.log("🛺  Welcome to CraftKit Playground");
-			console.log(" ");
-			console.log("    Check:");
-			console.log("      https://github.com/craftkit/craftkit-playground");
-			console.log(" ");
-			console.log("    Copy and paste tutorial snippet in here");
-			console.log("    Enjoy!");
-			console.log(" ");
-			Craft.Core.Bootstrap.boot({
-				router : Craft.Core.HashRouter,
-				didBootApplication : function(){
-					Craft.Core.Defaults.BASE_DIV_NAME = 'CraftRoot';
-					Craft.Core.Defaults.ALLOW_COMPONENT_SHORTCUT = true;
-				}
-			});
-		};
-	</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftKit Playground</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+    <link rel="stylesheet" href="index.css">
+
+    <script src="https://unpkg.com/@craftkit/craft-uikit/dist/craft-uikit.min.js"></script>
+    <script>
+        var jsEditor;
+        var commandEditor;
+        window.onload = function () {
+            Craft.Core.Bootstrap.boot({
+                router: Craft.Core.HashRouter,
+                didBootApplication: function () {
+                    Craft.Core.Defaults.BASE_DIV_NAME = 'preview';
+                    Craft.Core.Defaults.ALLOW_COMPONENT_SHORTCUT = true;
+                    var rootViewController = new Craft.UI.DefaultRootViewController();
+                    Craft.Core.Context.setRootViewController(rootViewController);
+                }
+            });
+
+            jsEditor = CodeMirror(document.getElementById('js-code'), {
+                mode: "javascript",
+                lineNumbers: true,
+                theme: "monokai",
+                viewportMargin: Infinity
+            });
+            commandEditor = CodeMirror(document.getElementById('command-input'), {
+                mode: "javascript",
+                lineNumbers: true,
+                theme: "monokai",
+                viewportMargin: Infinity
+            });
+        };
+
+        function executeCode() {
+            const jsCode = jsEditor.getValue();
+            const command = commandEditor.getValue();
+            const completeCode = jsCode + "\n" + command;
+            try {
+                // Execute the combined code to maintain context
+                new Function('Craft', completeCode)(Craft);
+            } catch (e) {
+                console.error('Error executing code:', e);
+            }
+        }
+
+        async function loadSample() {
+            const selector = document.getElementById('sample-selector');
+            const selectedSample = selector.value;
+            if (!selectedSample) {
+                return;
+            }
+            try {
+                const classes = await fetch(`./samples/${selectedSample}/classes.txt`);
+                const command = await fetch(`./samples/${selectedSample}/command.txt`);
+                const classesCode = await classes.text();
+                const commandCode = await command.text();
+                jsEditor.setValue(classesCode);
+                commandEditor.setValue(commandCode);
+            } catch (error) {
+                console.error('Failed to load sample:', error);
+            }
+        }
+
+        function clearPreview() {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = ''; // Clears the preview content
+            var rootViewController = new Craft.UI.DefaultRootViewController();
+            Craft.Core.Context.setRootViewController(rootViewController);
+        }
+    </script>
 </head>
-<body id="CraftRoot">
+
+<body>
+    <h1>CraftKit Playground</h1>
+    <div class="selector-wrapper">
+        <select id="sample-selector">
+            <option value="">Select one, then "Load Sample"</option>
+            <option value="Managing_Instance_Data_in_Views">Managing Instance Data in Views</option>
+            <option value="Managing_Sub_views">Managing Sub-views</option>
+            <option value="Managing_Sub_Views_for_Array_Data">Managing Sub-Views for Array Data</option>
+            <option value="Updating_Views">Updating Views</option>
+            <option value="Data_Injection_for_Remote_Data_Updates">Data Injection for Remote Data Updates</option>
+            <option value="Styling_Dynamic_Shadow_Hosts">Styling Dynamic Shadow Hosts</option>
+            <option value="Style_Sharing_and_Object_Oriented_CSS">Style Sharing and Object Oriented CSS</option>
+            <option value="Cascading_ViewController_and_GoF_Facade_Pattern">
+                Cascading ViewController and GoF Facade Pattern</option>
+            <option value="Creating_a_Package_Namespace">Creating a Package Namespace</option>
+            <option value="Using_Package_Name_as_Instance_Identifier">Using Package Name as Instance Identifier</option>
+            <option value="Routing_with_Strategy_Pattern_Object">Routing with Strategy Pattern Object</option>
+            <option value="Accessing_Instance_Variables_from_Template_Literals">
+                Accessing Instance Variables from Template Literals</option>
+            <option value="Component_Structure_and_Instance_Identification">
+                Component Structure and Instance Identification</option>
+        </select>
+        <button onclick="loadSample()">Load Sample</button>
+    </div>
+    <div class="playground-container">
+        <div class="code-editor">
+            <h3>Class</h3>
+            <p>Write your CraftKit classes here</p>
+            <div class="js-code-wrapper">
+                <div id="js-code"></div>
+            </div>
+        </div>
+        <div class="preview-command-wrapper">
+            <div id="preview-container">
+                <h3>Preview</h3>
+                <div id="preview"> </div>
+                <button onclick="clearPreview()">Clear Preview</button>
+            </div>
+            <div class="command-executor">
+                <h3>Execute Command</h3>
+                <p>Write your CraftKit operation here</p>
+                <div class="command-editor-wrapper">
+                    <div id="command-input"></div>
+                </div>
+                <button onclick="executeCode()">Run JS Code</button>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

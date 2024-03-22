@@ -1,0 +1,32 @@
+// top level package
+
+const MyCompany = {};
+
+MyCompany.usePackage = function(packages){
+  packages.inject(MyCompany);
+};
+
+window.MyCompany = MyCompany;
+
+// MyApp package definition (in a separate file/module)
+
+class MyBaseView extends Craft.UI.View {
+  template(componentId) {
+    return `<div class="root">This is MyBaseView</div>`;
+  }
+}
+
+const Packages = {
+  BaseView: MyBaseView
+};
+
+Packages.inject = function(MyCompany){
+  window.MyCompany.MyApp = MyCompany.MyApp || {};
+  if(!window.MyCompany.MyApp.Widget){
+    MyCompany.MyApp.Widget = Packages;
+  }
+};
+
+// integrate package into MyCompany namespace
+
+window.MyCompany.usePackage(Packages);

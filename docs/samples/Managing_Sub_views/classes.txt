@@ -1,0 +1,39 @@
+class Header extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.views = {};
+  }
+  viewDidLoad(callback) {
+    let title = new Title();
+    this.appendSubView(title);
+    this.views.title = title;
+
+    let backbtn = new BackBtn();
+    this.appendSubView(backbtn);
+    this.views.backbtn = backbtn;
+
+    if (callback) {
+      callback();
+    }
+  }
+  updateTitleText(text) {
+    this.views.title.setText(text);
+  }
+}
+
+
+class Title extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        <h1 id="title">Title</h1>
+      </div>
+    `;
+  }
+  setText(text) {
+    this.shadow.getElementById("title").innerHTML = text;
+  }
+}

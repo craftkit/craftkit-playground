@@ -1,0 +1,5 @@
+// create a view (in a HTML file)
+
+Craft.Core.Context.getRootViewController().appendSubView(
+  new MyCompany.MyApp.Widget.BaseView()
+);

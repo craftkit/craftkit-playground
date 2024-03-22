@@ -1,0 +1,110 @@
+class ProductListController extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { products: [] };
+    this.views = { current: null };
+  }
+  viewDidLoad(callback) {
+    this.loadData();
+    this.renderReloadBtn();
+    if (callback) callback();
+  }
+  loadData() {
+    this.renderLoading();
+
+    let xhr = new XMLHttpRequest();
+    xhr.onload = () => {
+      this.data.products = JSON.parse(xhr.response);
+      this.renderProductList();
+    };
+    xhr.open(
+      "GET",
+      "sampledata/simple_products.json"
+    );
+    xhr.send();
+  }
+  renderLoading() {
+    let view = new Loading();
+    this.replaceView({ id: "list", component: view });
+    this.views.current?.unloadView(); // Quick and dirty cleanup
+    this.views.current = view;
+  }
+  renderProductList() {
+    let view = new ProductList({ delegate: this });
+    this.replaceView({ id: "list", component: view });
+    this.views.current?.unloadView(); // Another quick and dirty cleanup
+    this.views.current = view;
+  }
+  renderReloadBtn() {
+    this.appendView({
+      id: "btn",
+      component: new ReloadBtn({ delegate: this }),
+    });
+  }
+  style(componentId) {
+    return `
+      #btn { background-color: #eee; }
+    `;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+      <div id="list"></div>
+      <div id="btn"></div>
+      </div>
+    `;
+  }
+}
+
+class Loading extends Craft.UI.View {
+  template(componentId) {
+    return `<div>Loading...</div>`;
+  }
+}
+class ReloadBtn extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.delegate = options.delegate;
+  }
+  reloadData() {
+    this.delegate.loadData();
+  }
+  style(componentId) {
+    return `.root { cursor: pointer; }`;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root" onclick="${componentId}.reloadData();">
+        Reload data
+      </div>
+    `;
+  }
+}
+
+class ProductList extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.delegate = options.delegate;
+    this.views = { products: [] };
+  }
+  viewDidLoad(callback) {
+    this.delegate.data.products.forEach((p) => {
+      let view = new Product(p);
+      this.appendView(view);
+      this.views.products.push(view);
+    });
+  }
+}
+class Product extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = options;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        ${this.data.name} : ${this.data.price}
+      </div>
+    `;
+  }
+}

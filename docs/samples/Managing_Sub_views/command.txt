@@ -1,0 +1,4 @@
+var header = new Header();
+header.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(header);
+

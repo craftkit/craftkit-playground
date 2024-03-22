@@ -1,0 +1,177 @@
+class CounterView1 extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { count: 0 };
+  }
+  countup() {
+    this.data.count++;
+    this.shadow.getElementById("counter").innerHTML = this.data.count;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        <span id="counter">${this.data.count}</span>
+      </div>
+    `;
+  }
+}
+
+class CounterView2 extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { count: 0 };
+  }
+  countup() {
+    this.data.count++;
+    this.renderView();
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        ${this.data.count}
+      </div>
+    `;
+  }
+}
+
+class CounterView3 extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { count: 0 };
+    this.templates = {
+      even: () => `Some complex even view: ${this.data.count}`,
+      odd: () => `Some complex odd view: ${this.data.count}`,
+    };
+    this.crr_template = this.templates.even();
+  }
+  countup() {
+    this.data.count++;
+    this.crr_template =
+      this.data.count % 2 == 0 ? this.templates.even() : this.templates.odd();
+    this.renderView();
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root" onClick="${componentId}.countup()">
+        ${this.crr_template}
+      </div>`;
+  }
+}
+
+class CounterView4 extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { count: 0 };
+    this.views = { numbox: null };
+  }
+  countup() {
+    this.data.count++;
+    this.updateNumBoxView();
+  }
+  updateNumBoxView() {
+    let view = new NumBoxView({ num: this.data.count });
+    this.replaceView({ id: "container", component: view });
+    this.views.numbox?.unloadView();
+    this.views.numbox = view;
+  }
+  viewDidLoad(callback) {
+    this.updateNumBoxView();
+    if (callback) {
+      callback();
+    }
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        <div id="container" onClick="${componentId}.countup()"></div>
+      </div>
+    `;
+  }
+}
+
+class NumBoxView extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = options;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        ${this.data.num}
+      </div>
+    `;
+  }
+}
+
+class CounterView5 extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { count: 0 };
+    this.views = {
+      even: new EvenNumBoxView({ delegate: this }),
+      odd: new OddNumBoxView({ delegate: this }),
+    };
+  }
+  viewDidLoad(callback) {
+    this.updateNumBoxView();
+    if (callback) {
+      callback();
+    }
+  }
+  countup() {
+    this.data.count++;
+    this.updateNumBoxView();
+  }
+  updateNumBoxView() {
+    if (this.data.count % 2 == 0) {
+      this.views.even.renderView();
+      this.replaceView({
+        id: "container",
+        component: this.views.even,
+      });
+    } else {
+      this.views.odd.renderView();
+      this.replaceView({
+        id: "container",
+        component: this.views.odd,
+      });
+    }
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        <div id="container" onClick="${componentId}.countup()"></div>
+      </div>
+    `;
+  }
+}
+
+class EvenNumBoxView extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.delegate = options.delegate;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        Some complex even view structure: 
+        ${this.delegate.data.count}
+      </div>
+    `;
+  }
+}
+
+class OddNumBoxView extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.delegate = options.delegate;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        Some complex odd view structure: 
+        ${this.delegate.data.count}
+      </div>
+    `;
+  }
+}

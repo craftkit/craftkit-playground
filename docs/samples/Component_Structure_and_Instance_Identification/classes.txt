@@ -1,0 +1,64 @@
+class Vehicle extends Craft.UI.View {
+  whoami() {
+    return this.shadow.getElementById("text").innerHTML;
+  }
+  style(componentId) {
+    return `
+      .root { color: red; }
+    `;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        Generic Vehicle
+      </div>
+    `;
+  }
+}
+
+class Bike extends Vehicle {
+  style(componentId) {
+    return super.style(componentId) + `
+        .root { color: blue; }
+    `;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        <span id="text">I'm Bike.</span>
+      </div>
+    `;
+  }
+}
+
+class Car extends Vehicle {
+  style(componentId) {
+    return super.style(componentId) + `
+      .root { color: purple; }
+    `;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        <span id="text">I'm Car.</span>
+      </div>
+    `;
+  }
+}
+class DangerousTruck extends Car {
+  ignite() {
+    this.shadow.getElementById("text").innerHTML = "🚛🔥🔥🔥";
+  }
+  cooldown() {
+    this.shadow.getElementById("text").innerHTML = "I'm COOL Truck.";
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        <span id="text" onclick="${componentId}.ignite()">
+          I'm dangerous Truck.
+        </span>
+      </div>
+    `;
+  }
+}

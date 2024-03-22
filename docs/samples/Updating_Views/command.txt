@@ -1,0 +1,20 @@
+var counterView1 = new CounterView1();
+counterView1.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(counterView1);
+
+var counterView2 = new CounterView2();
+counterView2.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(counterView2);
+
+var counterView3 = new CounterView3();
+counterView3.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(counterView3);
+
+var counterView4 = new CounterView4();
+counterView4.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(counterView4);
+
+var counterView5 = new CounterView5();
+counterView5.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(counterView5);
+

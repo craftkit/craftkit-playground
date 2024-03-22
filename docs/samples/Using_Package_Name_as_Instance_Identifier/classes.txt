@@ -1,0 +1,23 @@
+class Example extends Craft.UI.View {
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        Hello World!
+      </div>
+    `;
+  }
+}
+
+class Example2 extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.packagename = "com.craftclay.Example";
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        Hello World!
+      </div>
+    `;
+  }
+}

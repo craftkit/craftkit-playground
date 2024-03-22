@@ -1,0 +1,18 @@
+class Example extends Craft.UI.View {
+  constructor(options){
+    super(options);
+    this.data = { val: 'Hello!' };
+  }
+  action(str){
+    alert(str);
+  }
+  template(self){
+    return `
+      <div id="root" class="root">
+        <div onclick="${self}.action('World!')">
+          ${this.data.val} traditional looks and feel
+        </div>
+      </div>
+    `;
+  }
+}

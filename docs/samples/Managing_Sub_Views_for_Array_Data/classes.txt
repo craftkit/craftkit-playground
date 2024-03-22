@@ -1,0 +1,55 @@
+var products = [
+  { name: "Apple", price: 10 },
+  { name: "Orange", price: 13 },
+  { name: "Strawberry", price: 20 },
+  { name: "Pear", price: 9 },
+];
+
+class ProductListLoop extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { products: options.products };
+    this.views = {};
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        ${this.data.products.map((product, idx) => `
+          <div id="idx" class="product">
+            ${product.name} : ${product.price}
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+}
+
+class Product extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = options;
+    this.views = {};
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        ${this.data.name} : ${this.data.price}
+      </div>
+    `;
+  }
+}
+
+class ProductListFactorize extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { products: options.products };
+    this.views = { products: [] };
+  }
+  viewDidLoad(callback) {
+    this.data.products.forEach((p) => {
+      let view = new Product(p);
+      this.appendView(view);
+      this.views.products.push(view);
+    });
+  }
+}

@@ -1,0 +1,11 @@
+var productListLoop = new ProductListLoop({
+    products: products
+});
+productListLoop.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(productListLoop);
+
+var productListFactorize = new ProductListFactorize({
+    products: products
+});
+productListFactorize.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(productListFactorize);

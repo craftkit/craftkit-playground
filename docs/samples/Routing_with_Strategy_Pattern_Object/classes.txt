@@ -1,0 +1,35 @@
+class Apple extends Craft.UI.View {
+  template(componentId) {
+    return `<div class="root">🍎</div>`;
+  }
+}
+
+class Orange extends Craft.UI.View {
+  template(componentId) {
+    return `<div class="root">🍊</div>`;
+  }
+}
+
+class PageController extends Craft.UI.DefaultRootViewController {
+  constructor(options) {
+    super(options);
+    this.data = {
+      map: {
+        apple: new Apple(),
+        orange: new Orange(),
+      },
+    };
+  }
+  resolveRoutingRequest(route) {
+    let path = route.path || "apple";
+    let view = this.data.map[path];
+    this.replaceView(view);
+    if (route.launch) {
+      window.history.replaceState({}, "", "#/" + path);
+    } else {
+      if (!route.event) {
+        window.history.pushState({}, "", "#/" + path);
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+var view = new ProductListController();
+view.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(view);

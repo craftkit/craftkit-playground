@@ -1,0 +1,195 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: 'Roboto Mono', monospace;
+  background-color: #282c34;
+  color: #abb2bf;
+  display: flex;
+  flex-direction: column;
+}
+
+.playground-container {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.preview-command-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* Header styles */
+h1 {
+  padding: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #61afef;
+}
+
+h3 {
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #61afef;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+/* Form element styles for textarea */
+textarea {
+  background-color: #282c34;
+  color: #abb2bf;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  resize: none;
+  flex-grow: 1;
+  margin-bottom: 10px;
+  border: 1px solid #61afef;
+  transition: background-color 0.3s ease;
+}
+
+/* Form element styles for select */
+select {
+  background-color: #282c34;
+  color: #abb2bf;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  height: 40px;
+  border: 1px solid #61afef;
+  width: 60%;
+  appearance: none;
+  transition: background-color 0.3s ease;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23abb2bf" d="M7 10l5 5 5-5z"/></svg>')
+    no-repeat right 10px center;
+}
+
+/* Form element styles for button */
+button {
+  background-color: #282c34;
+  color: #abb2bf;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  height: 40px;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #528bca;
+}
+
+/* Selector-wrapper styles */
+.selector-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: auto;
+  width: 33%;
+  height: 60px;
+}
+
+.selector-wrapper select {
+  margin: 0 10px;
+}
+
+.selector-wrapper button {
+  margin: 0 10px;
+  background-color: #343942;
+}
+.selector-wrapper button:hover {
+  background-color: #528bca;
+}
+
+.code-editor {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #343942;
+}
+
+.command-executor {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+  margin: 0 20px 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #343942;
+}
+
+#preview-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+  margin: 20px 20px 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #343942;
+}
+
+.CodeMirror {
+  height: 100%;
+  min-height: 100%;
+  border-radius: 5px;
+}
+
+#js-code {
+  min-height: 200px;
+}
+
+#command-input {
+  min-height: 200px;
+}
+
+#preview {
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  overflow: auto;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+  background-color: #ffffff;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.js-code-wrapper {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.command-editor-wrapper {
+  flex-grow: 1;
+  overflow: auto;
+}

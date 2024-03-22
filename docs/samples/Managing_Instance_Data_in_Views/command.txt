@@ -1,0 +1,20 @@
+var headerTitle = new HeaderTitle({
+    title: "Title"
+});
+headerTitle.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(headerTitle);
+
+// SmallHeaderTitle
+var smallHeaderTitle = new SmallHeaderTitle({
+    title: "Title"
+});
+smallHeaderTitle.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(smallHeaderTitle);
+
+// DualHeaderTitle
+var dualHeaderTitle = new DualHeaderTitle({
+    title: "Title",
+    subtitle: "Subtitle"
+});
+dualHeaderTitle.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(dualHeaderTitle);

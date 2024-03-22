@@ -1,0 +1,44 @@
+class HeaderTitle extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = {
+      title: options.title,
+    };
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        <h1>${this.data.title}</h1>
+      </div>
+    `;
+  }
+}
+
+class SmallHeaderTitle extends HeaderTitle {
+  constructor(options) {
+    super(options);
+    this.data = {
+      title: options.title,
+    };
+  }
+}
+
+class DualHeaderTitle extends HeaderTitle {
+  constructor(options) {
+    super(options);
+    this.data = Object.assign(
+      {
+        sub: options.subtitle,
+      },
+      this.data
+    );
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        <h1>${this.data.title}</h1>
+        <h2>${this.data.sub}</h2>
+      </div>
+    `;
+  }
+}

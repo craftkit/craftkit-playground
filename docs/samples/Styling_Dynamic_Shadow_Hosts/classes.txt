@@ -1,0 +1,144 @@
+class Example extends Craft.UI.View {
+  style(componentId) {
+    return `
+      :host {
+        padding-top: env(safe-area-inset-top);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+    `;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root">
+        Example
+      </div>
+    `;
+  }
+}
+
+class Example2 extends Craft.UI.View {
+  updateShadowStyle() {
+    this.shadow.host.style.width = "200px";
+  }
+  style(componentId) {
+    return `
+      :host {
+        width: 100px;
+      }
+    `;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root" onclick="${componentId}.updateShadowStyle()">
+        Example2
+      </div>
+    `;
+  }
+}
+
+class Example3 extends Craft.UI.View {
+  viewDidLoad(callback) {
+    this.appendView(new Example3Wrapped());
+    if (callback) {
+      callback();
+    }
+  }
+  style(componentId) {
+    return `
+      .light { color: #333; background-color: #fff; }
+      .dark { color: #fff; background-color: #333; }
+    `;
+  }
+}
+
+class Example3Wrapped extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { mode: 0 };
+  }
+  toggleMode() {
+    this.data.mode++;
+    if (this.data.mode % 2) {
+      this.shadow.host.classList.add("light");
+      this.shadow.host.classList.remove("dark");
+    } else {
+      this.shadow.host.classList.add("dark");
+      this.shadow.host.classList.remove("light");
+    }
+  }
+  style(componentId) {
+    return `
+      :host { color: #333; background-color: #fff; }
+      .root { 
+        width: 100px; margin-left: auto; margin-right: auto;
+      }
+    `;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root" onclick="${componentId}.toggleMode()">
+        Example3Wrapped
+      </div>
+    `;
+  }
+}
+
+class Example4Wrapper extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.data = { mode: 1 };
+    this.views = { example: null };
+  }
+  viewDidLoad(callback) {
+    this.views.example = new Example4Wrapped({ delegate: this });
+    this.appendView(this.views.example);
+    if (callback) {
+      callback();
+    }
+  }
+  toggleMode() {
+    if (this.data.mode++ % 2) {
+      this.views.example.darkMode();
+    } else {
+      this.views.example.lightMode();
+    }
+  }
+  style(componentId) {
+    return `
+      .light { color:#333; background-color: #fff; }
+      .dark { color:#fff; background-color: #333; }
+    `;
+  }
+}
+
+class Example4Wrapped extends Craft.UI.View {
+  constructor(options) {
+    super(options);
+    this.delegate = options.delegate;
+  }
+  lightMode() {
+    this.shadow.host.classList.add("light");
+    this.shadow.host.classList.remove("dark");
+  }
+  darkMode() {
+    this.shadow.host.classList.add("dark");
+    this.shadow.host.classList.remove("light");
+  }
+  style(componentId) {
+    return `
+      :host { color:#333; background-color: #fff; }
+      .root { 
+        width:100px; marign-left:auto; marign-right:auto;
+      }
+    `;
+  }
+  template(componentId) {
+    return `
+      <div id="root" class="root" 
+      onclick="${componentId}.delegate.toggleMode()">
+        Example4Wrapped
+      </div>
+    `;
+  }
+}

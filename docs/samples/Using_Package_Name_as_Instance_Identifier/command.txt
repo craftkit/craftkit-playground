@@ -1,0 +1,7 @@
+var view = new Example();
+view.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(view);
+
+var view2 = new Example2();
+view2.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(view2);

@@ -1,0 +1,7 @@
+// 1. Run, and see your browser location
+// 2. Change the location to #/orange, and see the Preview
+
+var rootViewController = new PageController();
+Craft.Core.Context.setRootViewController(rootViewController);
+
+rootViewController.bringup();

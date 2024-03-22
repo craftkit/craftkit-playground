@@ -1,0 +1,11 @@
+var helloRed = new HelloRed();
+helloRed.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(helloRed);
+
+var textBlock = new TextBlock();
+textBlock.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(textBlock);
+
+var dynamicTextBlockController = new DynamicTextBlockController();
+dynamicTextBlockController.loadView();
+Craft.Core.Context.getRootViewController().appendSubView(dynamicTextBlockController);
