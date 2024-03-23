@@ -7,7 +7,7 @@ Explore and learn more through the online tutorial:
 
 ## Overview of Component
 
-![Diagram of a Component](assets/component.png)
+![Diagram of a Component](images/component.png)
 
 At the heart of Craft-UIKit lies the `Craft.Core.Component` base class. It encompasses the shadow host, shadow root, the DOM tree under the shadow, associated styles, and actions.
 
@@ -51,7 +51,7 @@ Notes:
 
 ## View and ViewController
 
-![Diagram of Component Structure](assets/tree.png)
+![Diagram of Component Structure](images/tree.png)
 
 The `Component` is further specialized into `View` (`Craft.UI.View`) and `ViewController` (`Craft.UI.DefaultViewController`), both extending `Craft.Core.Component`. The `View` encapsulates a template, style, and actions, while the `ViewController` acts as a container for multiple `View` instances and manages them.
 
@@ -210,7 +210,7 @@ For public library development, it's recommended to use the fully qualified comp
 
 Craft-UIKit defines a set of lifecycle methods that you should honor when creating your own ViewControllers to ensure a smooth and predictable component lifecycle, similar to how `Craft.Core.Component`, `Craft.UI.View`, and `Craft.UI.DefaultViewController` operate.
 
-![Component Lifecycle](assets/lifecycle.png)
+![Component Lifecycle](images/lifecycle.png)
 
 Lifecycle methods include:
 - `loadView`: Prepares `this.view` and `this.css`.
