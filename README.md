@@ -6,6 +6,8 @@ or write your own code to see how it works.
 
 ## 📖 Documentation
 
+- [Introduction](./documents/Introduction.md)
+
 - [Managing Instance Data in Views](./documents/Managing_Instance_Data_in_Views.md)
 - [Managing Sub-views](./documents/Managing_Sub-views.md)
 - [Managing Sub-Views for Array Data](./documents/Managing_Sub-Views_for_Array_Data.md)
