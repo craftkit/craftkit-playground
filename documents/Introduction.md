@@ -247,4 +247,4 @@ window.onload = function(){
 };
 ```
 
-This refined documentation aims to provide a clearer understanding of Craft-UIKit, focusing on the essential elements, usage examples, and best practices for developing robust web applications.
+This documentation and playground aims to provide a clearer understanding of Craft-UIKit, focusing on the essential elements, usage examples, and best practices for developing robust web applications.
